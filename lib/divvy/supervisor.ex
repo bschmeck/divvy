@@ -7,7 +7,8 @@ defmodule Divvy.Supervisor do
 
   def init(:ok) do
     children = [
-      worker(Divvy.StationData, [])
+      worker(Divvy.StationData, []),
+      worker(Divvy.Fetcher, [])
     ]
 
     supervise(children, strategy: :one_for_one)
