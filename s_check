@@ -1,0 +1,3 @@
+#! /usr/bin/env bash
+
+elixir --sname cli /home/bschmeck/src/elixir/divvy/output.exs Orleans 212 2>&1
