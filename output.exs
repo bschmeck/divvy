@@ -10,7 +10,7 @@ end
 
 printer = printer_maker.(station_name)
 
-case GenServer.call({Divvy.StationData, :"foo@osprey"}, {:get, station_id}) do
+case GenServer.call({Divvy.StationData, :"divvy@osprey"}, {:get, station_id}) do
   {:found, station} -> printer.(station)
   {:missing, _} -> IO.puts "No Data"
 end
