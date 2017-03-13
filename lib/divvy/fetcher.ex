@@ -6,13 +6,13 @@ defmodule Divvy.Fetcher do
   end
 
   def init(state) do
-    Process.send_after(self(), :feed, 60 * 1000)
+    Process.send_after(self(), :feed, :timer.minutes(1))
     {:ok, state}
   end
 
   def handle_info(:feed, state) do
     feed |> Divvy.StationData.update
-    Process.send_after(self(), :feed, 60 * 1000)
+    Process.send_after(self(), :feed, :timer.minutes(1))
     {:noreply, state}
   end
 
