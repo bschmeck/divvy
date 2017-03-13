@@ -2,6 +2,14 @@ defmodule Divvy do
   use Application
 
   def start(_type, _args) do
-    Divvy.Supervisor.start_link
+    import Supervisor.Spec, warn: false
+
+    children = [
+      worker(DivvyServer.StationData, []),
+      worker(DivvyServer.Fetcher, [])
+    ]
+
+    opts = [strategy: :one_for_one, name: Divvy.Supervisor]
+    Supervisor.start_link(children, opts)
   end
 end
