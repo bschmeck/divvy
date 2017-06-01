@@ -6,7 +6,8 @@ defmodule Divvy do
 
     children = [
       worker(Divvy.StationData, []),
-      worker(Divvy.Fetcher, [])
+      worker(Divvy.Fetcher, []),
+      worker(Divvy.Configuration, [])
     ]
 
     opts = [strategy: :one_for_one, name: Divvy.Supervisor]
