@@ -5,8 +5,8 @@ defmodule Divvy do
     import Supervisor.Spec, warn: false
 
     children = [
-      worker(DivvyServer.StationData, []),
-      worker(DivvyServer.Fetcher, [])
+      worker(Divvy.StationData, []),
+      worker(Divvy.Fetcher, [])
     ]
 
     opts = [strategy: :one_for_one, name: Divvy.Supervisor]
