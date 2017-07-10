@@ -4,7 +4,7 @@ defmodule Divvy.Configuration do
   # Client
 
   def start_link do
-    initial_state = %{ aliases: {}, primary: 1 }
+    initial_state = %{ aliases: %{}, primary: 1 }
     GenServer.start_link(__MODULE__, initial_state, name: __MODULE__)
   end
 
@@ -20,10 +20,15 @@ defmodule Divvy.Configuration do
     GenServer.call(__MODULE__, {:get_primary})
   end
 
+  def alias_for(station_id) do
+    GenServer.call(__MODULE__, {:alias_for, station_id})
+  end
+
   # Server
 
-  def handle_cast({:register, station_id, station_name}, state = %{aliases: aliases}) do
-    {:noreply, %{state | aliases: %{aliases | station_id => station_name}}}
+  def handle_cast({:register_alias, station_id, station_name}, state = %{aliases: aliases}) do
+    new_aliases = Map.put(aliases, station_id, station_name)
+    {:noreply, %{state | aliases: new_aliases} }
   end
 
   def handle_cast({:set_primary, station_id}, state) do
@@ -32,5 +37,9 @@ defmodule Divvy.Configuration do
 
   def handle_call({:get_primary}, _from, state = %{primary: primary_id}) do
     {:reply, {:ok, primary_id}, state}
+  end
+
+  def handle_call({:alias_for, station_id}, _from, state = %{aliases: aliases}) do
+    {:reply, {:ok, aliases[station_id]}, state}
   end
 end
