@@ -11,7 +11,7 @@ defmodule Divvy.Fetcher do
   end
 
   def handle_info(:feed, state) do
-    feed |> Divvy.StationData.update
+    feed() |> Divvy.StationData.update
     Process.send_after(self(), :feed, :timer.minutes(1))
     {:noreply, state}
   end
