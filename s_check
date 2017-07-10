@@ -1,4 +1,3 @@
 #! /usr/bin/env bash
 
-elixir --sname cli /home/bschmeck/src/elixir/divvy/output.exs Wells 53 2>&1
-# elixir --sname cli /home/bschmeck/src/elixir/divvy/output.exs Orleans 212 2>&1
+elixir --sname cli /home/bschmeck/src/elixir/divvy/output.exs 2>&1
